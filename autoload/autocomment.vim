@@ -58,22 +58,12 @@ function! autocomment#comment_range(start, end, range) abort
     endif
 
     let lines = getline(a:start, a:end)
-    let comment = get(s:cmt_chars, &filetype)
-    let comment_cmd = "^i".comment." \<Esc>"
+    let uncommented_line_nums = GetUncommentedLineNumbers(lines, a:start)
 
     " Get in position to start comment/uncomment process
     execute "normal! ".a:start."G"
-
-    let uncommented_line_nums = GetUncommentedLineNumbers(lines, a:start)
-
-    " If all the lines are uncommented, comment them
-    if len(uncommented_line_nums) == len(lines)
-        for line in lines
-            call Comment()
-            execute "normal! j"
-        endfor
     " If there are any lines uncommented in the range, comment them
-    elseif len(uncommented_line_nums) > 0
+    if len(uncommented_line_nums) > 0
         for line_num in uncommented_line_nums
             execute "normal! ".line_num."G"
             call Comment()
