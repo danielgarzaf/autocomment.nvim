@@ -5,7 +5,8 @@ let s:cmt_chars = {
             \ "cpp" : "//",
             \ "java" : "//",
             \ "lua" : "--",
-            \ "sh" : "#"
+            \ "sh" : "#",
+            \ "matlab": "%"
             \ }
 
 
